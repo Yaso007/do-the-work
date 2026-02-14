@@ -1,0 +1,12 @@
+Users can register
+Users can login
+
+Each user can:
+    Create todo
+    Update todo
+    Delete todo
+    View only their own todos
+
+JWT authentication
+Secure password storage
+Dockerized environment
