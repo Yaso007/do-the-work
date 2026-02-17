@@ -3,7 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 
-import {router as to_do_routes} from './routes/todo.routes.js';
+import to_do_routes from './routes/todo.routes.js';
 
 const app = express();
 
