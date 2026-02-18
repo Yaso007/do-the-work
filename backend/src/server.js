@@ -4,6 +4,7 @@ import connectDB from './config/db.js';
 
 dotenv.config()
 const PORT = 8000;
+
 const startServer = async () =>{
   try{
     await connectDB();
