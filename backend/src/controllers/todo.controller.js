@@ -29,6 +29,10 @@ export const getTodos = async (req,res, next) => {
 }
 export const updateTodo = async (req, res, next) =>{
     try{
+        console.log(req.user.id,
+            req.params.id,
+            req.body)
+            
         const todo = await todoService.updateTodo(
             req.user.id,
             req.params.id,

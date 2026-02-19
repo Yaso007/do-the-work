@@ -26,16 +26,16 @@ export const getTodosByUserId = async (userId) => {
 }
 
 export const updateTodo = async (userId, todoId, updates) =>{
-    const {title, completed, urgency} = updates;
+    const {title, completed, priority} = updates;
 
     const result = await pool.query(
         `
         UPDATE todos
         SET title = $1, completed = $2, urgency = $3
-        WHERE user_id = $4 AND todo_id = $5
+        WHERE user_id = $4 AND id = $5
         RETURNING *
         `,
-        [title, completed, urgency, userId, todoId]
+        [title, completed, priority, userId, todoId]
     )
     return result.rows[0];
 }

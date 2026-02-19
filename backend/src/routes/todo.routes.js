@@ -12,9 +12,9 @@ router.get('/',(req,res) => {
     res.send("hello world")
 })
 
-router.post('/', todoController.createTodo);
-router.get('/', todoController.getTodos);
-router.put('/',todoController.updateTodo);
-router.delete('/', todoController.deleteTodo)
+router.post('/createTodo', todoController.createTodo);
+router.get('/getTodo', todoController.getTodos);
+router.put('/updateTodo/:id',todoController.updateTodo);
+router.delete('/deleteTodo', todoController.deleteTodo);
 
 export default router;
