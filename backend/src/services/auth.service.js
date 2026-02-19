@@ -7,7 +7,7 @@ export const registerUser = async (name, email, password) => {
     const result = await pool.query(
         `
         INSERT INTO users (name, email, password)
-        VALUES ($1, $2,$3)
+        VALUES ($1, $2, $3)
         RETURNING id, email, created_at
         `,
         [name, email, hashedPassword]
