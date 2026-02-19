@@ -4,8 +4,8 @@ import jwt from  'jsonwebtoken';
 
 export const register = async (req, res, next) => {
     try{
-        const {email, password} = req.body;
-        const user = await authService.registerUser(email,password);
+        const {name, email, password} = req.body;
+        const user = await authService.registerUser(name, email,password);
 
         res.status(201).json(user);
 

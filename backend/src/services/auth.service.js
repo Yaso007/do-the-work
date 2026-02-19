@@ -1,16 +1,16 @@
 import {pool} from '../config/db.config.js';
 import bcrypt from 'bcrypt';
 
-export const registerUser = async (email, password) => {
+export const registerUser = async (name, email, password) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const result = await pool.query(
         `
-        INSERT INTO users (email, password)
-        VALUES ($1, $2)
+        INSERT INTO users (name, email, password)
+        VALUES ($1, $2,$3)
         RETURNING id, email, created_at
         `,
-        [email, hashedPassword]
+        [name, email, hashedPassword]
 
     );
     return result.rows[0];
