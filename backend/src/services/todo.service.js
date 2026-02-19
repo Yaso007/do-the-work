@@ -40,7 +40,7 @@ export const updateTodo = async (userId, todoId, updates) =>{
     return result.rows[0];
 }
 
-export const deleteTodp = async (userId, todoId) => {
+export const deleteTodo = async (userId, todoId) => {
     const result = await pool.query (
         `
         DELETE FROM todos
