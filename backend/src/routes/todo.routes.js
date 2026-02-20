@@ -15,6 +15,6 @@ router.get('/',(req,res) => {
 router.post('/createTodo', todoController.createTodo);
 router.get('/getTodo', todoController.getTodos);
 router.put('/updateTodo/:id',todoController.updateTodo);
-router.delete('/deleteTodo', todoController.deleteTodo);
+router.delete('/deleteTodo/:id', todoController.deleteTodo);
 
 export default router;

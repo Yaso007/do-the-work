@@ -44,7 +44,7 @@ export const deleteTodo = async (userId, todoId) => {
     const result = await pool.query (
         `
         DELETE FROM todos
-        WHERE user_id = $1 AND todo_id = $2
+        WHERE user_id = $1 AND id = $2
         RETURNING *
         `,
         [userId, todoId]
