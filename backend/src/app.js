@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import {globalLimiter} from './middlewares/rateLimit.middleware.js'
 
 import to_do_routes from './routes/todo.routes.js';
 import auth_routes from './routes/auth.routes.js';
@@ -12,6 +13,7 @@ const app = express();
 
 app.use(helmet());
 app.use(cors());
+app.use(globalLimiter);
 
 
 //for only development
