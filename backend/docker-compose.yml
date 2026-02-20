@@ -2,9 +2,9 @@ version: "3.8"
 
 services:
   db:
-    image:  postgres:15
+    image: postgres:15
     container_name: todo_db
-    restart:  always
+    restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
@@ -12,9 +12,10 @@ services:
     ports:
       - "6000:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/postgres_data
-      - ./migrations:/
-  
+      - postgres_data:/var/lib/postgresql/data  # Fixed data path
+      # This runs your SQL files on startup:
+      - ./migrations:/docker-entrypoint-initdb.d:ro 
+
   backend:
     build: .
     container_name: todo_backend
@@ -33,10 +34,9 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
+      # You usually don't need migrations mounted twice, 
+      # but if you do, this path is fine:
+      - ./migrations:/app/migrations:rw
 
 volumes:
   postgres_data:
-
-
-
-  
