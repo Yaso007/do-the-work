@@ -2,7 +2,7 @@ import {useState} from "react";
 import {useNavigate, Link} from "react-router-dom";
 import api from "../api/axios";
 import {useAuth} from "../context/AuthContext";
-import {AuthResponse} from "../types/auth";
+import type {AuthResponse} from "../types/auth";
 
 const Login = () => {
     const navigate = useNavigate()
@@ -57,5 +57,7 @@ const Login = () => {
                 Don't have an account? <Link to="/register">Register here</Link>
             </p>
         </div>
-    );      
+    ); 
+
 }
+export default Login;
