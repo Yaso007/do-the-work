@@ -11,6 +11,7 @@ const Register =()=>{
     const navigate = useNavigate();
     const {login} = useAuth();
     const [email, setEmail] = useState("");
+    const [name, setName] = useState("");   
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
@@ -20,9 +21,11 @@ const Register =()=>{
         
         try{
             const {data} = await api.post<AuthResponse>("/auth/register",{
+                name,
                 email,
                 password,
             });
+            console.log(data)
             login(data.token);
             navigate("/dashboard");
         }catch(err: any){
@@ -38,6 +41,13 @@ const Register =()=>{
                     error && <div className="auth-error">{error}</div>
                 }
                 <form onSubmit={handleSubmit}>
+                    <input type="text" 
+                        placeholder="Name"
+                        className="auth-input"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required    
+                    />
                     <input type="email" 
                         placeholder="Email"
                         className="auth-input"
