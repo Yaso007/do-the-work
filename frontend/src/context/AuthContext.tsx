@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 import type {User} from "../types/auth";
+import {useNavigate, Link} from "react-router-dom";
 
 interface AuthContextType {
     user: User |null;
@@ -11,6 +12,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({children}:{children:ReactNode}) =>{
+    const navigate = useNavigate();
     const [user, setUser] = useState<User | null>(null);
     const [token, setToken] = useState<string | null> (null);
     
@@ -24,6 +26,7 @@ export const AuthProvider = ({children}:{children:ReactNode}) =>{
         localStorage.removeItem("token");
         setToken(null);
         setUser(null);
+        navigate("/");
 
     };
 

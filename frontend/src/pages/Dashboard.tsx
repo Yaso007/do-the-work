@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import {useAuth} from "../context/AuthContext";
+import {useNavigate, Link} from "react-router-dom";
 
 interface Todo {
   id: string;
@@ -10,29 +11,45 @@ interface Todo {
 }
 
 const Dashboard = () => {
+const navigate = useNavigate();
   const { token, user, logout } = useAuth();
 
   const [todos, setTodos] = useState<Todo[]>([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [priority, setPriority] = useState("");
   const [loading, setLoading] = useState(false);
 
   const API_URL = "http://localhost:8000";
 
   // 🔹 Fetch Todos
   const fetchTodos = async () => {
-    try {
-      const res = await fetch(`${API_URL}/todos`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+   try {
+    console.log("Fetching todos with token:", token);
+    const res = await fetch(`${API_URL}/api/todos/getTodo`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
 
-      const data = await res.json();
-      setTodos(data);
-    } catch (err) {
-      console.error("Failed to fetch todos", err);
+    const data = await res.json();
+
+    // If your API wraps the array in an object (e.g., { todos: [] })
+    if (data && Array.isArray(data.todos)) {
+       setTodos(data.todos);
+    } 
+    // If your API returns the array directly
+    else if (Array.isArray(data)) {
+       setTodos(data);
+    } 
+    else {
+       console.error("Received non-array data:", data);
+       setTodos([]); // Fallback to empty array to prevent crash
     }
+  } catch (err) {
+    console.error("Failed to fetch todos", err);
+    setTodos([]); // Fallback on network error
+  }
   };
 
   useEffect(() => {
@@ -47,16 +64,17 @@ const Dashboard = () => {
     setLoading(true);
 
     try {
-      await fetch(`${API_URL}/todos`, {
+      await fetch(`${API_URL}/api/todos/createTodo`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ title, description }),
+        body: JSON.stringify({ title, priority, description }),
       });
 
       setTitle("");
+      setPriority("");
       setDescription("");
       fetchTodos();
     } catch (err) {
@@ -69,14 +87,15 @@ const Dashboard = () => {
   // 🔹 Delete Todo
   const handleDelete = async (id: string) => {
     try {
-      await fetch(`${API_URL}/todos/${id}`, {
+      await fetch(`${API_URL}api/todos/deleteTodo/${id}`, {
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${token}`,
+          authorization: `Bearer ${token}`,
         },
       });
 
       setTodos(todos.filter((todo) => todo.id !== id));
+   
     } catch (err) {
       console.error("Failed to delete todo", err);
     }
@@ -99,7 +118,13 @@ const Dashboard = () => {
           onChange={(e) => setTitle(e.target.value)}
           style={styles.input}
         />
-
+        <input
+          type="text"
+          placeholder="priority"
+          value={priority}
+          onChange={(e) => setPriority(e.target.value)}
+          style={styles.input}
+        />
         <input
           type="text"
           placeholder="Description (optional)"

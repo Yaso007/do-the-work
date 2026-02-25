@@ -27,14 +27,14 @@ const Register =()=>{
             });
             console.log(data)
             login(data.token,data.user);
-            navigate("/dashboard");
+            navigate("/");
         }catch(err: any){
             setError(err.response?.data?.message || "Registration failed");
         }
     }
     return (
         <>
-          <div clasName="auth-container">
+          <div className="auth-container">
             <div className='auth-card'>
                 <h2 className='auth-title'> Create Account </h2>
                 {
