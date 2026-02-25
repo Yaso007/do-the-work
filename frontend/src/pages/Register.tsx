@@ -15,7 +15,7 @@ const Register =()=>{
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
-    const handleSubmit = async (e:FormEvent<HTMLFormElements>) => {
+    const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError("");
         
@@ -26,7 +26,7 @@ const Register =()=>{
                 password,
             });
             console.log(data)
-            login(data.token);
+            login(data.token,data.user);
             navigate("/dashboard");
         }catch(err: any){
             setError(err.response?.data?.message || "Registration failed");
