@@ -12,7 +12,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({children}:{children:ReactNode}) =>{
-    const navigate = useNavigate();
+   // const navigate = useNavigate();
     const [user, setUser] = useState<User | null>(null);
     const [token, setToken] = useState<string | null> (null);
     
@@ -26,7 +26,7 @@ export const AuthProvider = ({children}:{children:ReactNode}) =>{
         localStorage.removeItem("token");
         setToken(null);
         setUser(null);
-        navigate("/");
+       // navigate("/");
 
     };
 

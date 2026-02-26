@@ -105,7 +105,10 @@ const navigate = useNavigate();
     <div style={styles.container}>
       <div style={styles.header}>
         <h2>Welcome, {user?.name}</h2>
-        <button style={styles.logoutBtn} onClick={logout}>
+        <button style={styles.logoutBtn} onClick={() =>{
+          logout();
+          navigate("/");
+        }}>
           Logout
         </button>
       </div>
