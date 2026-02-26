@@ -5,6 +5,7 @@ import api from "../api/axios";
 import {useAuth} from "../context/AuthContext";
 import type {AuthResponse} from "../types/auth";
 //import "../styles/auth.css";
+import "./Register.css";
 
 
 const Register =()=>{
@@ -35,11 +36,12 @@ const Register =()=>{
     return (
         <>
           <div className="auth-container">
-            <div className='auth-card'>
-                <h2 className='auth-title'> Create Account </h2>
+            <h2 className='auth-title'> Create Account </h2>
                 {
                     error && <div className="auth-error">{error}</div>
                 }
+            <div className='auth-card'>
+              
                 <form onSubmit={handleSubmit}>
                     <input type="text" 
                         placeholder="Name"
