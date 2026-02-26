@@ -3,6 +3,7 @@ import {useNavigate, Link} from "react-router-dom";
 import api from "../api/axios";
 import {useAuth} from "../context/AuthContext";
 import type {AuthResponse} from "../types/auth";
+import "./Login.css";
 
 const Login = () => {
     const navigate = useNavigate()
@@ -51,10 +52,10 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                <button type="submit">Login</button>
+                <button type="submit" className="login-button">Login</button>
             </form>
             <p>
-                Don't have an account? <Link to="/register">Register here</Link>
+                Don't have an account? <Link className="register-link" to="/register">Register here</Link>
             </p>
         </div>
     ); 
